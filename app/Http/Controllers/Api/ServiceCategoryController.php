@@ -14,7 +14,7 @@ class ServiceCategoryController extends Controller
     public function categories()
     {
       ServiceCategoryResource::withoutWrapping();
-      return ServiceCategoryResource::collection(ServiceCategory::all());
+      return ServiceCategoryResource::collection(ServiceCategory::whereNull('parent_service_category_id')->get());
       
     }
 

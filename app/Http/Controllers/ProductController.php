@@ -29,9 +29,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-      $providers = ServiceProvider::all();
       $categories = ServiceCategory::all();
-       return view('products.create', compact('providers', 'categories'));
+       return view('products.create', compact('categories'));
     }
 
     /**
@@ -47,7 +46,6 @@ class ProductController extends Controller
       $product->product_name = $request->product_name;
       $product->product_price = $request->product_price;
       $product->p_service_category_id = $request->p_service_category_id;
-      $product->p_service_provider_id = $request->p_service_provider_id;
 
       if ($request->hasFile('p_img_url')) {
           $p_img_url = $request->file('p_img_url');
@@ -83,9 +81,8 @@ class ProductController extends Controller
     public function edit($product_id)
     {
       $product = Product::find($product_id);
-      $providers = ServiceProvider::all();
       $categories = ServiceCategory::all();
-      return view('products.edit', compact('product','providers','categories'));
+      return view('products.edit', compact('product','categories'));
     }
 
     /**
@@ -118,7 +115,6 @@ class ProductController extends Controller
       $product->product_name = $request->product_name;
       $product->product_price = $request->product_price;
       $product->p_service_category_id = $request->p_service_category_id;
-      $product->p_service_provider_id = $request->p_service_provider_id;
 
         $product->save();
         toastr()->success('Product updated successfully!');

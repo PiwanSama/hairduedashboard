@@ -31,7 +31,6 @@
                     <th scope="col">{{ __('Image') }}</th>
                     <th scope="col">{{ __('Name') }}</th>
                     <th scope="col">{{ __('Price') }}</th>
-                    <th scope="col">{{__('Service Provider')}}</th>
                     <th scope="col">{{__('Category')}}</th>
                     <th scope="col"></th>
                 </tr>
@@ -45,7 +44,6 @@
                     </td>
                     <td>{{ $product->product_name }}</td>
                     <td>{{ $product->product_price }}</td>
-                    <td>{{ $product->service_provider->service_provider_name }}</td>
                     <td>{{ $product->service_category->sc_name }}</td>
                     <td class="text-right">
                       <div class="dropdown">

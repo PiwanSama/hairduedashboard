@@ -40,14 +40,6 @@
                       <label for="product_price">Price:</label>
                       <input type="text" class="form-control" name="product_price" id="product_price" value="{{$product->product_price}}">
                     </div>
-                    <div class="form-group col-md-12">
-                      <label for="p_service_provider_id">Service Provider:</label>
-                      <select class="form-control" id="p_service_provider_id" name="p_service_provider_id">
-                        @foreach ($providers as $provider)
-                        <option value="{{$provider->service_provider_id}}">{{$provider->service_provider_name}}</option>
-                        @endforeach
-                    </select>
-                  </div>
                   <div class="form-group col-md-12">
                       <label for="p_service_category_id">Service Category:</label>
                       <select class="form-control" id="p_service_category_id" name="p_service_category_id">
