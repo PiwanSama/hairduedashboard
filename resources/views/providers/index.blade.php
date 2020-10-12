@@ -42,7 +42,7 @@
                       @foreach ($providers as $provider)
                       <tr>
                           <td class="table-img rounded-circle mr-3">
-                            <img src={{ asset('images/spimages/'.$provider->sp_img_url) }} alt = "Image"></img>
+                            <img src={{ asset('images/spimages/'.$provider->sp_id_img) }} alt = "Image"></img>
                           </td>
                           <td>{{ $provider->service_provider_name }}</td>
                           <td>{{ $provider->sp_address }}</td>

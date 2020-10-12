@@ -18,13 +18,11 @@ class ServiceProvider extends Model
    'sp_lat',
    'sp_lng',
    'sp_address',
-   'sp_opening_time',
-   'sp_closing_time',
    'sp_rating',
    'sp_whatsapp_contact',
    'sp_primary_contact',
    'sp_secondary_contact',
-   'sp_img_url' ];
+   'sp_id_img' ];
 
    public function reviews()
     {

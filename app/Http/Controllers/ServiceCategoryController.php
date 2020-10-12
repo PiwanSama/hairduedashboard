@@ -94,7 +94,7 @@ class ServiceCategoryController extends Controller
       if ($service_category != null) {
 
           // Check if a service_category image has been uploaded
-          if ($request->hasFile('sp_img_url')) {
+          if ($request->hasFile('sp_id_img')) {
             $service_category_image = $request->file('sc_img_url');
             $filename = 'img_'.$service_category_image->getClientOriginalName();
             strtolower($filename);

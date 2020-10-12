@@ -48,11 +48,6 @@
             <!-- Navigation -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">
-                        <i class="ni ni-tv-2 text-custom"></i> {{ __('Dashboard') }}
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="#providers-menu" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="providers-menu">
                         <i class="ni ni-shop text-custom"></i> {{ __('Service Providers') }}
                     </a>
@@ -84,25 +79,6 @@
                           </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('products.create') }}">
-                                    Add New
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#services-menu" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="services-menu">
-                        <i class="ni ni-tie-bow text-custom"></i> {{ __('Services') }}
-                    </a>
-                    <div class="collapse show" id="services-menu">
-                        <ul class="nav nav-sm flex-column">
-                          <li class="nav-item">
-                              <a class="nav-link" href="{{ route('services.index') }}">
-                                    View All
-                              </a>
-                          </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('services.create') }}">
                                     Add New
                                 </a>
                             </li>

@@ -18,9 +18,9 @@ class ServiceCategoryController extends Controller
       
     }
 
-    public function hairCategories()
+    public function getChildCategories($parent_category_id)
     {
       ServiceCategoryResource::withoutWrapping();
-      return ServiceCategoryResource::collection(ServiceCategory::where('parent_service_category_id',1)->get());
+      return ServiceCategoryResource::collection(ServiceCategory::where('parent_service_category_id',$parent_category_id)->get());
     }
 }

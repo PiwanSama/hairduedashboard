@@ -18,14 +18,7 @@ class Product extends Model
    'product_old_price',
    'product_price',
    'p_img_url',
-   'p_service_provider_id',
    'p_service_category_id' ];
-   
-
-   public function service_provider()
-    {
-        return $this->belongsTo('App\Models\ServiceProvider', 'p_service_provider_id');
-    }
 
     public function service_category()
     {

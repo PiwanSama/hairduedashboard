@@ -26,8 +26,8 @@
               <form method="post" action="{{ route('providers.store') }}" enctype="multipart/form-data">
                 @csrf
                   <div class="form-group col-md-12">
-                    <label for="file-upload" class="btn btn-success"><i class="nc-icon nc-cloud-upload-94 upload"></i>Upload Image</label>
-                    <input id="file-upload" name='sp_img_url' type="file" style="display:none;" required>
+                    <label for="file-upload" class="btn btn-success"><i class="nc-icon nc-cloud-upload-94 upload"></i>Upload ID</label>
+                    <input id="file-upload" name='sp_id_img' type="file" style="display:none;" required>
                   </div>
                   <div class="form-group col-md-12">
                     <label for="service_provider_name">Name:</label>
@@ -48,14 +48,6 @@
                     <div class="form-group col-md-12">
                       <label for="sp_secondary_contact">Secondary Contact:</label>
                       <input type="text" class="form-control" name="sp_secondary_contact" id="sp_secondary_contact" required>
-                    </div>
-                    <div class="form-group col-md-12">
-                      <label for="sp_opening_time">Opening Time:</label>
-                      <input type="time" class="form-control" name="sp_opening_time" id="sp_opening_time" required>
-                    </div>
-                    <div class="form-group col-md-12">
-                      <label for="sp_closing_time">Closing Time:</label>
-                      <input type="time" class="form-control" name="sp_closing_time" id="sp_closing_time" required>
                     </div>
                 <div class="footer">
                   <a class="btn btn-secondary" href="{{ route('providers.index') }}">Cancel</a>

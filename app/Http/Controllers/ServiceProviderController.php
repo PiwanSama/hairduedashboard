@@ -49,13 +49,13 @@ class ServiceProviderController extends Controller
       $service_provider->sp_primary_contact = $request->sp_secondary_contact;
       $service_provider->sp_secondary_contact = $request->sp_opening_time;
 
-      if ($request->hasFile('sp_img_url')) {
-          $service_provider_image = $request->file('sp_img_url');
+      if ($request->hasFile('sp_id_img')) {
+          $service_provider_image = $request->file('sp_id_img');
           $filename = 'img_'.$service_provider_image->getClientOriginalName();
           strtolower($filename);
           $service_provider_image->move('images/spimages/', $filename);
 
-          $service_provider->sp_img_url = $filename;
+          $service_provider->sp_id_img = $filename;
       }
 
       $service_provider->save();
@@ -101,13 +101,13 @@ class ServiceProviderController extends Controller
       if ($service_provider != null) {
 
           // Check if a service_provider image has been uploaded
-          if ($request->hasFile('sp_img_url')) {
-            $service_provider_image = $request->file('sp_img_url');
+          if ($request->hasFile('sp_id_img')) {
+            $service_provider_image = $request->file('sp_id_img');
             $filename = 'img_'.$service_provider_image->getClientOriginalName();
             strtolower($filename);
             $service_provider_image->move('images/spimages/', $filename);
   
-            $service_provider->sp_img_url = $filename;
+            $service_provider->sp_id_img = $filename;
         }
 
         $service_provider->service_provider_name = $request->service_provider_name;

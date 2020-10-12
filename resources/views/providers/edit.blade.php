@@ -26,11 +26,11 @@
                 @csrf
                 @method('PUT')
                   <div class="form-group col-md-6">
-                    <img src={{ asset('images/spimages/'.$provider->sp_img_url) }} alt = "Image"></img>
+                    <img src={{ asset('images/spimages/'.$provider->sp_id_img) }} alt = "Image"></img>
                   </div>
                   <div class="form-group col-md-12">
                     <label for="file-upload" class="btn btn-success"><i class="nc-icon nc-cloud-upload-94 upload"></i>Upload New Image</label>
-                    <input id="file-upload" name='sp_img_url' type="file" style="display:none;">
+                    <input id="file-upload" name='sp_id_img' type="file" style="display:none;">
                   </div>
                   <div class="form-group col-md-12">
                     <label for="service_provider_name">Name:</label>
@@ -51,14 +51,6 @@
                     <div class="form-group col-md-12">
                       <label for="sp_secondary_contact">Secondary Contact:</label>
                       <input type="text" class="form-control" name="sp_secondary_contact" id="sp_secondary_contact" value="{{$provider->sp_secondary_contact}}">
-                    </div>
-                    <div class="form-group col-md-12">
-                      <label for="sp_opening_time">Opening Time:</label>
-                      <input type="time" class="form-control" name="sp_opening_time" id="sp_opening_time" value="{{$provider->sp_opening_time}}">
-                    </div>
-                    <div class="form-group col-md-12">
-                      <label for="sp_closing_time">Closing Time:</label>
-                      <input type="time" class="form-control" name="sp_closing_time" id="sp_closing_time" value="{{$provider->sp_closing_time}}">
                     </div>
                 <!-- Card footer -->
                 <div class="card-footer py-4">
