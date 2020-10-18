@@ -13,8 +13,10 @@ class User extends Model
 
   protected $fillable =
    ['user_id',
-   'user_name',
+   'user_fname',
+   'user_lname',
    'user_email',
+   'user_contact',
    'user_token' ];
 
 }

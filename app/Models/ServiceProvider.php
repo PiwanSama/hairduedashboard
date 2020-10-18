@@ -15,33 +15,15 @@ class ServiceProvider extends Model
   protected $fillable =
    ['service_provider_id',
    'service_provider_name',
-   'sp_lat',
-   'sp_lng',
    'sp_address',
    'sp_rating',
    'sp_whatsapp_contact',
    'sp_primary_contact',
-   'sp_secondary_contact',
    'sp_id_img' ];
 
    public function reviews()
     {
         return $this->hasMany('App\Models\ServiceProviderReview','sp_review_provider_id');
-    }
-
-    public function tags()
-    {
-        return $this->hasMany('App\Models\SpTag');
-    }
-
-    public function products()
-    {
-        return $this->hasMany('App\Models\Product','p_service_provider_id');
-    }
-
-    public function services()
-    {
-        return $this->hasMany('App\Models\Service', 's_service_provider_id');
     }
 
     public function service_categories()
