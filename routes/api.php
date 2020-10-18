@@ -23,8 +23,9 @@ Route::group(['middleware' => 'auth:api'], function(){
     
 });
 
-Route::post('/addUser', 'Api\UserController@add');
-Route::get('/categories', 'Api\ServiceCategoryController@categories');
-Route::get('/categories/{id}', 'Api\ServiceCategoryController@getChildCategories');
-Route::get('/products', 'Api\ProductController@products');
-Route::get('/product/{id}', 'Api\ProductController@product');
+Route::post('/addUser', 'UserController@add');
+Route::post('/login', 'UserController@login');
+Route::get('/categories', 'ServiceCategoryController@categories');
+Route::get('/categories/{id}', 'ServiceCategoryController@getChildCategories');
+Route::get('/products', 'ProductController@products');
+Route::get('/product/{id}', 'ProductController@product');

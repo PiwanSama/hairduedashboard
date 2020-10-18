@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\Authenticatable;
 
-class User extends Model
+class User extends Authenticatable
 {
-  use \App\Http\Traits\UsesUuid;
+  use \App\Http\Traits\UsesUuid, Notifiable, HasApiTokens;
   
   protected $table = 'user';
   protected $primaryKey = 'user_id';

@@ -25,4 +25,8 @@ class UserController extends Controller
       ], 201);
     }
 
+    public function login($email, $password){
+      $user = User::where('user_email', $email)->get();
+    }
+
 }
