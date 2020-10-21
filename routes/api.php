@@ -23,7 +23,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     
 });
 
-Route::post('/addUser', 'UserController@add');
+Route::post('/register', 'UserController@register');
 Route::post('/login', 'UserController@login');
 Route::get('/categories', 'ServiceCategoryController@categories');
 Route::get('/categories/{id}', 'ServiceCategoryController@getChildCategories');

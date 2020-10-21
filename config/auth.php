@@ -42,7 +42,9 @@ return [
         ],
 
         'api' => [
-            'driver' => 'firebase',
+            'driver' => 'passport',
+            'provider' => 'users',
+            'hash' => 'false',
         ],
     ],
 
@@ -69,10 +71,10 @@ return [
             'model' => App\Admin::class,
         ],
 
-        // 'admin' => [
-        //     'driver' => 'database',
-        //     'table' => 'admin',
-        // ],
+        'users' => [
+           'driver' => 'eloquent',
+           'model' => App\Models\User::class,
+         ],
     ],
 
     /*
