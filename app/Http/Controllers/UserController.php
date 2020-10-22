@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Admin;
+use App\User;
 use App\Models\Role;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
@@ -18,10 +18,10 @@ class UserController extends Controller
     /**
      * Display a listing of the users
      *
-     * @param  \App\Model\Admin  $model
+     * @param  \App\Model\User  $model
      * @return \Illuminate\View\View
      */
-    public function index(Admin $model)
+    public function index(User $model)
     {
         return view('users.index', ['users' => $model->paginate(15)]);
     }
@@ -41,34 +41,34 @@ class UserController extends Controller
      * Store a newly created user in storage
      *
      * @param  \App\Http\Requests\UserRequest  $request
-     * @param  \App\Admin  $model
+     * @param  \App\User  $model
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(UserRequest $request, Admin $model)
+    public function store(UserRequest $request, User $model)
     {
 
-        $user = Admin::create($request->except('roles'));
+        $user = User::create($request->except('roles'));
 
         if($request->roles <> ''){
             $user->roles()->attach($request->roles);
         }
 
-        return redirect()->route('users.index')->with('success','Admin has been created');
+        return redirect()->route('users.index')->with('success','User has been created');
 
         //$model->create($request->merge(['password' => Hash::make($request->get('password'))])->all());
 
-        //return redirect()->route('user.index')->withStatus(__('Admin added successfully created.'));
+        //return redirect()->route('user.index')->withStatus(__('User added successfully created.'));
     }
 
     /**
      * Show the form for editing the specified user
      *
-     * @param  \App\Admin  $user
+     * @param  \App\User  $user
      * @return \Illuminate\View\View
      */
-    public function edit(Admin $user)
+    public function edit(User $user)
     {
-        $user = Admin::findOrFail($id);
+        $user = User::findOrFail($id);
         $roles = Role::get();
         return view('users.edit', compact('user', 'roles'));
     }
@@ -77,15 +77,15 @@ class UserController extends Controller
      * Update the specified user in storage
      *
      * @param  \App\Http\Requests\UserRequest  $request
-     * @param  \App\Admin  $user
+     * @param  \App\User  $user
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UserRequest $request, $id)
     {
-      $user = Admin::findOrFail($id);
+      $user = User::findOrFail($id);
       $this->validate($request, [
           'name'=>'required|max:120',
-          'email'=>'required|email|unique:admin,email,'.$id,
+          'email'=>'required|email|unique:user,email,'.$id,
           'password'=>'required|min:6|confirmed'
       ]);
       $input = $request->except('roles');
@@ -97,20 +97,20 @@ class UserController extends Controller
           $user->roles()->detach();
       }
       return redirect()->route('users.index')->with('success',
-           'Admin successfully updated.');
+           'User successfully updated.');
     }
 
     /**
      * Remove the specified user from storage
      *
-     * @param  \App\Admin  $user
+     * @param  \App\User  $user
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        $user = Admin::findOrFail($id);
+        $user = User::findOrFail($id);
         $user->delete();
 
-        return redirect()->route('user.index')->withStatus(__('Admin successfully deleted.'));
+        return redirect()->route('user.index')->withStatus(__('User successfully deleted.'));
     }
 }

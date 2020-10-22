@@ -2,7 +2,7 @@
 
 @section('content')
     @include('users.partials.header', [
-        'title' => __('Hello') . ' '. auth()->user()->name,
+        'title' => __('Hello') . ' '. auth()->user()->first_name,
         'description' => __('This is your store profile page. You manage your account details here.'),
         'class' => 'col-lg-7'
     ])

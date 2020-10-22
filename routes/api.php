@@ -29,3 +29,5 @@ Route::get('/categories', 'ServiceCategoryController@categories');
 Route::get('/categories/{id}', 'ServiceCategoryController@getChildCategories');
 Route::get('/products', 'ProductController@products');
 Route::get('/product/{id}', 'ProductController@product');
+
+

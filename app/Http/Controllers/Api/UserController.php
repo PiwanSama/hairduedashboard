@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\User;
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class UserController extends Controller
     public function register(Request $request)
     { 
 
-      $checkUser = User::where('user_email',$request->email)->get();
+      $checkUser = User::where('email',$request->email)->get();
 
       if(!$checkUser->isEmpty()){
         return response()->json([
@@ -21,11 +22,11 @@ class UserController extends Controller
       }
 
         $user = new User;
-        $user->user_fname = $request->first_name;
-        $user->user_lname = $request->last_name;
-        $user->user_email = $request->email;
-        $user->user_contact = $request->contact;
-        $user->password = bcrypt($request->email);
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->contact = $request->contact;
+        $user->password = Hash::make($request->password);
 
         $user->save();
 
@@ -40,21 +41,48 @@ class UserController extends Controller
 
     public function login(Request $request){
 
-      $credentials = request(['user_email', 'password']);
+     /* $credentials = request(['email', 'password']);
       
-      if(!Auth::attempt($credentials)){
+      if(!auth()->attempt($credentials)){
         return response()->json([
           "message"=>"Invalid credentials"
         ], 201);
       }
 
-      $accessToken = $user->createToken('authToken')->accessToken;
+      $accessToken = auth()->user()->createToken('authToken')->accessToken;
 
         return response()->json([
           "message"=>"Login successful",
           "user"=>auth()->user(),
           "access_token"=>$accessToken
-        ], 201);
+        ], 201);*/
+
+        $user = User::where('email', $request->email)->first();
+        
+        if($user){
+
+          if(Hash::check($request->password, $user->password)){
+            
+            $accessToken = $user->createToken('authToken')->accessToken;
+
+            return response()->json([
+              "message"=>"Login successful",
+              "user"=>$user,
+              "access_token"=>$accessToken
+            ], 201);
+
+          }else{
+            return response()->json([
+              "message"=>"Invalid credentials"
+            ], 422);
+
+          }
+        }else{
+          return response()->json([
+            "message"=>"User doesn't exist"
+          ], 422);
+
+        }
 
     }
 
