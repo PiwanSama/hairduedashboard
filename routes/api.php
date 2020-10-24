@@ -20,14 +20,13 @@ use Illuminate\Http\Request;
 
 //Client API
 Route::group(['middleware' => 'auth:api'], function(){
-    
+    Route::post('/logout', 'UserController@logout');
+    Route::get('/categories', 'ServiceCategoryController@categories');
+    Route::get('/categories/{id}', 'ServiceCategoryController@getChildCategories');
+    Route::get('/products', 'ProductController@products');
+    Route::get('/product/{id}', 'ProductController@product');
 });
 
 Route::post('/register', 'UserController@register');
 Route::post('/login', 'UserController@login');
-Route::get('/categories', 'ServiceCategoryController@categories');
-Route::get('/categories/{id}', 'ServiceCategoryController@getChildCategories');
-Route::get('/products', 'ProductController@products');
-Route::get('/product/{id}', 'ProductController@product');
-
 
