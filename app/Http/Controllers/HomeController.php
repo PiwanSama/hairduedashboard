@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\ServiceProvider;
 
 class HomeController extends Controller
 {
@@ -21,6 +22,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-      return view('dashboard');
+      $providers= ServiceProvider::all();
+      return view('providers.index', compact('providers'));
     }
 }

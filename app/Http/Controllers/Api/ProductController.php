@@ -12,7 +12,8 @@ class ProductController extends Controller
 {
     public function products()
     { 
-      return ProductResource::collection(Product::paginate(),200);
+      //return ProductResource::collection(Product::paginate(),200);
+      return ProductResource::collection(Product::all(),200);
     }
 
     public function product($product_id)

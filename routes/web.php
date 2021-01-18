@@ -26,7 +26,7 @@ Route::group(['middleware' => 'auth'], function () {
     'products' => 'productController',
     'providers' => 'serviceProviderController',
     'services' => 'serviceController',
-    'categories' => 'serviceCategoryController',
+    'categories' => 'ServiceCategoryController',
   ]);
   Route::resource('user', 'UserController', ['except' => ['show']]);
   Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);

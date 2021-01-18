@@ -88,12 +88,6 @@
                                     <input class="form-control" placeholder="{{ __('Confirm Password') }}" type="password" name="password_confirmation" required>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="custom-control custom-control-alternative custom-checkbox mb-3">
-                                    <input class="custom-control-input" name="is_admin" id="is_admin" type="checkbox" checked>
-                                    <label class="custom-control-label" for="is_admin">User is an administrator</label>
-                                </div>
-                            </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary mt-4">{{ __('Create account') }}</button>
                             </div>

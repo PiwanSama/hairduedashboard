@@ -7,7 +7,7 @@
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ 'Hairdue' }}</title>
+        <title>{{ 'BeautyGo' }}</title>
         <!-- Favicon -->
         <link href="{{ asset('/images/logo.png') }}" rel="icon" type="image/png">
         <!-- Fonts -->

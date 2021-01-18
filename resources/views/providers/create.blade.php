@@ -39,15 +39,15 @@
                     </div>
                    <div class="form-group col-md-12">
                       <label for="sp_whatsapp_contact">Whatsapp Contact:</label>
-                      <input type="text" class="form-control" name="sp_whatsapp_contact" id="sp_whatsapp_contact" required>
+                      <input type="text" class="form-control" name="sp_whatsapp_contact" id="sp_whatsapp_contact" maxlength="10" required>
                     </div>
                     <div class="form-group col-md-12">
                       <label for="sp_primary_contact">Primary Contact:</label>
-                      <input type="text" class="form-control" name="sp_primary_contact" id="sp_primary_contact" required>
+                      <input type="text" class="form-control" name="sp_primary_contact" id="sp_primary_contact" maxlength="10" required>
                     </div>
                     <div class="form-group col-md-12">
                       <label for="sp_secondary_contact">Secondary Contact:</label>
-                      <input type="text" class="form-control" name="sp_secondary_contact" id="sp_secondary_contact" required>
+                      <input type="text" class="form-control" name="sp_secondary_contact" id="sp_secondary_contact" maxlength="10">
                     </div>
                 <div class="footer">
                   <a class="btn btn-secondary" href="{{ route('providers.index') }}">Cancel</a>

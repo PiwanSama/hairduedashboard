@@ -18,7 +18,7 @@
           <div class="card">
             <!-- Card header -->
             <div class="card-header border-0">
-              <h3 class="mb-0">Hairdue Registered Service Providers</h3>
+              <h3 class="mb-0">BeautyGo Registered Service Providers</h3>
             </div>
             <!-- Product -->
             <div class="card-body">
@@ -33,8 +33,7 @@
                           <th scope="col">{{ __('Address') }}</th>
                           <th scope="col">{{__('Whatsapp Contact')}}</th>
                           <th scope="col">{{__('Primary Contact')}}</th>
-                          <th scope="col">{{ __('Rating') }}</th>
-                          <th scope="col"></th>
+                          <th scope="col">Actions</th>
                       </tr>
                     </tr>
                   </thead>
@@ -48,7 +47,6 @@
                           <td>{{ $provider->sp_address }}</td>
                           <td>{{ $provider->sp_whatsapp_contact }}</td>
                           <td>{{ $provider->sp_primary_contact }}</td>
-                          <td>{{ $provider->sp_rating }}</td>
                           <td class="text-right">
                             <div class="dropdown">
                                 <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

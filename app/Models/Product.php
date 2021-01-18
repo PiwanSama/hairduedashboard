@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
 
-  use \App\Http\Traits\UsesUuid;
-
   protected $table = 'product';
   protected $primaryKey = 'product_id';
 

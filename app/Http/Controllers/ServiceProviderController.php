@@ -40,14 +40,9 @@ class ServiceProviderController extends Controller
     {
       $service_provider = new ServiceProvider;
       $service_provider->service_provider_name = $request->service_provider_name;
-      $service_provider->sp_location = $request->sp_location;
       $service_provider->sp_address = $request->sp_address;
-      $service_provider->sp_opening_time = $request->sp_opening_time;
-      $service_provider->sp_closing_time = $request->sp_closing_time;
-      $service_provider->sp_rating = $request->sp_rating;
       $service_provider->sp_whatsapp_contact = $request->sp_whatsapp_contact;
-      $service_provider->sp_primary_contact = $request->sp_secondary_contact;
-      $service_provider->sp_secondary_contact = $request->sp_opening_time;
+      $service_provider->sp_primary_contact = $request->sp_primary_contact;
 
       if ($request->hasFile('sp_id_img')) {
           $service_provider_image = $request->file('sp_id_img');
@@ -95,6 +90,7 @@ class ServiceProviderController extends Controller
      */
     public function update(Request $request, $service_provider_id)
     {
+      
       //Retrieve the service_provider
       $service_provider = ServiceProvider::where('service_provider_id', $service_provider_id)->first();
 
@@ -111,14 +107,9 @@ class ServiceProviderController extends Controller
         }
 
         $service_provider->service_provider_name = $request->service_provider_name;
-        $service_provider->sp_location = $request->sp_location;
         $service_provider->sp_address = $request->sp_address;
-        $service_provider->sp_opening_time = $request->sp_opening_time;
-        $service_provider->sp_closing_time = $request->sp_closing_time;
-        $service_provider->sp_rating = $request->sp_rating;
         $service_provider->sp_whatsapp_contact = $request->sp_whatsapp_contact;
-        $service_provider->sp_primary_contact = $request->sp_secondary_contact;
-        $service_provider->sp_secondary_contact = $request->sp_opening_time;
+        $service_provider->sp_primary_contact = $request->sp_primary_contact;
 
         $service_provider->save();
         toastr()->success('Service provider updated successfully!');
@@ -143,11 +134,11 @@ class ServiceProviderController extends Controller
         if ($service_provider != null) {
             $service_provider->delete();
             toastr()->success('Service provider deleted successfully!');
-            return redirect()->route('providers');
+            return redirect()->route('providers.index');
         }
 
         toastr()->error('Service provider not found');
-        return redirect()->route('providers');
+        return redirect()->route('providers.index');
       }
 
 }

@@ -41,22 +41,6 @@ class UserController extends Controller
 
     public function login(Request $request){
 
-     /* $credentials = request(['email', 'password']);
-      
-      if(!auth()->attempt($credentials)){
-        return response()->json([
-          "message"=>"Invalid credentials"
-        ], 201);
-      }
-
-      $accessToken = auth()->user()->createToken('authToken')->accessToken;
-
-        return response()->json([
-          "message"=>"Login successful",
-          "user"=>auth()->user(),
-          "access_token"=>$accessToken
-        ], 201);*/
-
         $user = User::where('email', $request->email)->first();
         
         if($user){
@@ -73,13 +57,17 @@ class UserController extends Controller
 
           }else{
             return response()->json([
-              "message"=>"Invalid credentials"
+              "message"=>"Your credentials were incorrect",
+              "user"=>null,
+              "access_token"=>""
             ], 422);
 
           }
         }else{
           return response()->json([
-            "message"=>"User doesn't exist"
+            "message"=>"This account doesn't exist",
+            "user"=>null,
+            "access_token"=>""
           ], 422);
 
         }

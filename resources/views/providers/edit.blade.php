@@ -18,7 +18,7 @@
           <div class="card">
             <!-- Card header -->
             <div class="card-header border-0">
-              <h3 class="mb-0">Editing {{$provider->service_provider_name}}</h3>
+              <h3 class="mb-0">Editing {{$provider->service_provider_name}}'s Details</h3>
             </div>
             <!-- provider -->
             <div class="body">
@@ -26,7 +26,7 @@
                 @csrf
                 @method('PUT')
                   <div class="form-group col-md-6">
-                    <img src={{ asset('images/spimages/'.$provider->sp_id_img) }} alt = "Image"></img>
+                    <img class="table-img" src={{ asset('images/spimages/'.$provider->sp_id_img) }} alt = "Image"></img>
                   </div>
                   <div class="form-group col-md-12">
                     <label for="file-upload" class="btn btn-success"><i class="nc-icon nc-cloud-upload-94 upload"></i>Upload New Image</label>
