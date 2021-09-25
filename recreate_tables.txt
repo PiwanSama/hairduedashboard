@@ -1,0 +1,258 @@
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+DROP TABLE IF EXISTS `oauth_access_tokens`;
+CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
+  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` char(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `client_id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `scopes` text COLLATE utf8mb4_unicode_ci,
+  `revoked` tinyint(1) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, 
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `expires_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `oauth_access_tokens_user_id_index` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS `oauth_auth_codes`;
+CREATE TABLE IF NOT EXISTS `oauth_auth_codes` (
+  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `client_id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `scopes` text COLLATE utf8mb4_unicode_ci,
+  `revoked` tinyint(1) NOT NULL,
+  `expires_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `oauth_auth_codes_user_id_index` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS `oauth_clients`;
+CREATE TABLE IF NOT EXISTS `oauth_clients` (
+  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` char(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `secret` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `provider` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `redirect` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `personal_access_client` tinyint(1) NOT NULL,
+  `password_client` tinyint(1) NOT NULL,
+  `revoked` tinyint(1) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, 
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `oauth_clients_user_id_index` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS `oauth_personal_access_clients`;
+CREATE TABLE IF NOT EXISTS `oauth_personal_access_clients` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `client_id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, 
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS `oauth_refresh_tokens`;
+CREATE TABLE IF NOT EXISTS `oauth_refresh_tokens` (
+  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `access_token_id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `revoked` tinyint(1) NOT NULL,
+  `expires_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `oauth_refresh_tokens_access_token_id_index` (`access_token_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `password_resets`;
+CREATE TABLE IF NOT EXISTS `password_resets` (
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, 
+  KEY `password_resets_email_index` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `product`;
+CREATE TABLE IF NOT EXISTS `product` (
+  `product_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_name` varchar(45) DEFAULT NULL,
+  `product_old_price` decimal(19,0) DEFAULT NULL,
+  `product_price` decimal(19,0) DEFAULT NULL,
+  `p_img_url` varchar(60) DEFAULT NULL,
+  `p_reviews_count` int(11) DEFAULT NULL,
+  `p_category_id` int(11) DEFAULT NULL,
+  `p_service_provider_id` int(11) DEFAULT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`product_id`),
+  KEY `p_category_id_idx` (`p_category_id`),
+  KEY `p_service_provider_id_idx` (`p_service_provider_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `product_category`;
+CREATE TABLE IF NOT EXISTS `product_category` (
+  `product_category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `pc_name` varchar(45) DEFAULT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`product_category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `product_review`;
+CREATE TABLE IF NOT EXISTS `product_review` (
+  `p_review_id` int(11) NOT NULL AUTO_INCREMENT,
+  `p_review_content` varchar(400),
+  `p_review_rating` double DEFAULT NULL,
+  `p_review_product_id` int(11) DEFAULT NULL,
+  `p_review_user_id` int(11) DEFAULT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`p_review_id`),
+  KEY `p_review_product_id_idx` (`p_review_product_id`),
+  KEY `p_review_user_id_idx` (`p_review_user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `service`;
+CREATE TABLE IF NOT EXISTS `service` (
+  `service_id` int(11) NOT NULL AUTO_INCREMENT,
+  `service_name` varchar(45) DEFAULT NULL,
+  `service_price` decimal(19,0) DEFAULT NULL,
+  `s_img_url` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `s_service_provider_id` int(11) DEFAULT NULL,
+  `s_service_category_id` int(11) DEFAULT NULL,
+  `s_reviews_count` int(11) DEFAULT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`service_id`),
+  KEY `s_service_provider_id_idx` (`s_service_provider_id`),
+  KEY `s_service_category_id_idx` (`s_service_category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `serviceprovider_servicecategory`;
+CREATE TABLE IF NOT EXISTS `serviceprovider_servicecategory` (
+  `service_provider_id` int(11) DEFAULT NULL,
+  `service_category_id` int(11) DEFAULT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  KEY `service_provider_id_idx` (`service_provider_id`),
+  KEY `service_category_id_idx` (`service_category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `service_category`;
+CREATE TABLE IF NOT EXISTS `service_category` (
+  `service_category_id` int(2) NOT NULL AUTO_INCREMENT,
+  `parent_service_category_id` int(2) DEFAULT NULL,
+  `sc_name` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`service_category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `service_provider`;
+CREATE TABLE IF NOT EXISTS `service_provider` (
+  `service_provider_id` int(11) NOT NULL AUTO_INCREMENT,
+  `service_provider_name` varchar(45) DEFAULT NULL,
+  `sp_coverphoto_url` varchar(255) DEFAULT NULL,
+  `sp_address` varchar(45) DEFAULT NULL,
+  `sp_location_lat` double DEFAULT NULL,
+  `sp_location_lng` double DEFAULT NULL,
+  `sp_whatsapp_contact` varchar(13) DEFAULT NULL,
+  `sp_rating` float DEFAULT NULL,
+  `sp_secondary_contact` varchar(13) DEFAULT NULL,
+  `sp_primary_contact` varchar(13) DEFAULT NULL,
+  `sp_id_back` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `sp_id_front` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `is_sp_active` boolean NOT NULL DEFAULT TRUE,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`service_provider_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `service_provider_review`;
+CREATE TABLE IF NOT EXISTS `service_provider_review` (
+  `sp_review_id` int(11) NOT NULL AUTO_INCREMENT,
+  `sp_review_content` varchar(400),
+  `sp_review_rating` float DEFAULT NULL,
+  `sp_review_provider_id` int(11) DEFAULT NULL,
+  `sp_review_user_id` int(11) DEFAULT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`sp_review_id`),
+  KEY `sp_review_provider_id_idx` (`sp_review_provider_id`),
+  KEY `sp_review_user_id_idx` (`sp_review_user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `last_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `email` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `password` varchar(200) NOT NULL,
+  `contact` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `is_admin` tinyint(1) NOT NULL DEFAULT '0',
+  `email_verified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `email`, `password`, `contact`, `is_admin`, `email_verified_at`, `updated_at`, `created_at`) VALUES
+(1, 'Samalie', 'Piwan', 'piwan.summerlee@gmail.com', '$2y$10$AR/1rSa42xDaYNryvhE37OngTluHqySSxPRCiUavEQn6Q.9strbOm', '0701221117', 0, '2020-10-27 17:34:36', '2020-10-27 14:34:36', '2020-10-27 14:34:36');
+
+
+INSERT INTO `service_provider` (`service_provider_id`, `service_provider_name`, `sp_coverphoto_url`, `sp_address`, `sp_location_lat`, `sp_location_lng`, `sp_whatsapp_contact`, `sp_rating`, `sp_secondary_contact`, `sp_primary_contact`, `sp_id_back`, `sp_id_front`, `updated_at`, `created_at`) VALUES
+(1, 'Blades and Curls Salon', 'img_salon.jpg', 'Namuswa Plaza, Wandegeya', 0.3324638442179735, 32.572984369320366, '0701221117', NULL, NULL, '0701221117', NULL, NULL, '2021-09-02 16:46:13', '2021-09-02 16:46:13');
+
+INSERT INTO `product` (`product_id`, `product_name`, `product_old_price`, `product_price`, `p_img_url`, `p_reviews_count`, `p_category_id`, `p_service_provider_id`, `updated_at`, `created_at`) VALUES
+(1, 'Nivea One', NULL, '35000', 'img_niveanorm.png', NULL, 1, NULL, '2021-09-01 16:34:59', '2021-09-01 16:34:59'),
+(2, 'Nivea Two', NULL, '38000', 'img_nivea.jpg', NULL, 1, NULL, '2021-09-01 16:41:59', '2021-09-01 16:41:59');
+
+INSERT INTO `service_category` (`service_category_id`, `parent_service_category_id`, `sc_name`, `updated_at`, `created_at`) VALUES
+(1, NULL, 'Salons', '2021-09-02 17:33:44', '2021-09-02 17:33:44'),
+(2, NULL, 'Nails', '2021-09-02 17:33:44', '2021-09-02 17:33:44'),
+(3, NULL, 'Makeup', '2021-09-02 17:33:44', '2021-09-02 17:33:44'),
+(4, NULL, 'Bridals', '2021-09-02 17:33:44', '2021-09-02 17:33:44');
+
+INSERT INTO `product_category` (`product_category_id`, `pc_name`, `updated_at`, `created_at`) VALUES
+(1, 'Skincare', '2021-09-02 17:35:14', '2021-09-02 17:35:14'),
+(2, 'Haircare', '2021-09-02 17:35:14', '2021-09-02 17:35:14'),
+(3, 'Makeup', '2021-09-02 17:35:14', '2021-09-02 17:35:14');
+
+--
+-- Constraints for table `product`
+--
+ALTER TABLE `product`
+  ADD CONSTRAINT `p_category_id` FOREIGN KEY (`p_category_id`) REFERENCES `product_category` (`product_category_id`) ON UPDATE CASCADE ON DELETE CASCADE,
+  ADD CONSTRAINT `p_service_provider_id` FOREIGN KEY (`p_service_provider_id`) REFERENCES `service_provider` (`service_provider_id`) ON UPDATE CASCADE ON DELETE CASCADE;
+
+--
+-- Constraints for table `product_review`
+--
+ALTER TABLE `product_review`
+  ADD CONSTRAINT `p_review_product_id` FOREIGN KEY (`p_review_product_id`) REFERENCES `product` (`product_id`) ON UPDATE CASCADE ON DELETE RESTRICT,
+  ADD CONSTRAINT `p_review_user_id` FOREIGN KEY (`p_review_user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `service`
+--
+ALTER TABLE `service`
+  ADD CONSTRAINT `s_service_provider_id` FOREIGN KEY (`s_service_provider_id`) REFERENCES `service_provider` (`service_provider_id`) ON UPDATE CASCADE ON DELETE CASCADE;
+
+--
+-- Constraints for table `serviceprovider_servicecategory`
+--
+ALTER TABLE `serviceprovider_servicecategory`
+  ADD CONSTRAINT `service_category_id` FOREIGN KEY (`service_category_id`) REFERENCES `service_category` (`service_category_id`) ON UPDATE CASCADE ON DELETE CASCADE,
+  ADD CONSTRAINT `service_provider_id` FOREIGN KEY (`service_provider_id`) REFERENCES `service_provider` (`service_provider_id`) ON UPDATE CASCADE ON DELETE CASCADE;
+
+--
+-- Constraints for table `service_provider_review`
+--
+ALTER TABLE `service_provider_review`
+  ADD CONSTRAINT `sp_review_provider_id` FOREIGN KEY (`sp_review_provider_id`) REFERENCES `service_provider` (`service_provider_id`) ON UPDATE RESTRICT ON DELETE CASCADE,
+  ADD CONSTRAINT `sp_review_user_id` FOREIGN KEY (`sp_review_user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE ON DELETE CASCADE;
+
+COMMIT;
