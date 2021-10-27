@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Tag;
 
 class ServiceProvider extends JsonResource
 {
@@ -26,7 +27,8 @@ class ServiceProvider extends JsonResource
             'primary_contact'=>$this->sp_primary_contact,
             'secondary_contact'=>$this->sp_secondary_contact,
             'img_url'=>$this->sp_id_img,
-            'is_active'=>$this->is_sp_active
+            'is_active'=>$this->is_sp_active,
+            'tags'=>Tag::collection($this->tags)
         ];
     }
 }

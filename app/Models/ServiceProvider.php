@@ -34,4 +34,9 @@ class ServiceProvider extends Model
         return $this->hasMany('App\Models\ServiceCategory','id');
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany('App\Models\Tag','serviceprovider_tag', 'service_provider_id','tag_id');
+    }
+
 }
