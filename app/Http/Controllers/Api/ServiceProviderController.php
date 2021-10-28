@@ -11,6 +11,11 @@ use App\Http\Resources\ServiceProvider as ServiceProviderResource;
 class ServiceProviderController extends Controller
 {
 
+  public function getProviders(){
+    // /ServiceProviderResource::withoutWrapping();
+    return ServiceProviderResource::collection(ServiceProvider::all());
+ }
+
     public function getProviderDetails($service_provider_id){
       ServiceProviderResource::withoutWrapping();
       return ServiceProviderResource::collection(
