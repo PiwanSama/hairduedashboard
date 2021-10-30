@@ -32,4 +32,5 @@ Route::get('/product/{id}', 'ProductController@product');
 Route::get('/providers/{id}', 'ServiceCategoryController@getProvidersByCategory');
 Route::get('/provider/{id}', 'ServiceProviderController@getProviderDetails');
 Route::post('/order/create', 'OrderController@postOrder');
+Route::post('/order/cart/create', 'OrderController@postOrderProducts');
 Route::get('/order/{id}', 'OrderController@getOrder');
