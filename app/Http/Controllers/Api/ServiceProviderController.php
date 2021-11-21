@@ -7,6 +7,7 @@ use App\Models\ServiceProvider;
 use Illuminate\Http\Request;
 
 use App\Http\Resources\ServiceProvider as ServiceProviderResource;
+use App\Http\Resources\ServiceProviderMap as ServiceProviderMapResource;
 
 class ServiceProviderController extends Controller
 {
@@ -16,11 +17,18 @@ class ServiceProviderController extends Controller
     return ServiceProviderResource::collection(ServiceProvider::all());
  }
 
-    public function getProviderDetails($service_provider_id){
-      ServiceProviderResource::withoutWrapping();
-      return ServiceProviderResource::collection(
-        ServiceProvider::where('is_sp_active',TRUE)
-        ->where('service_provider_id',$service_provider_id)
-        ->get());
-   }
+ public function getProvidersForMap(){
+  ServiceProviderMapResource::withoutWrapping();
+  return ServiceProviderMapResource::collection(
+    ServiceProvider::where('is_sp_active',TRUE)
+    ->get());
+ }
+
+  public function getProviderDetails($service_provider_id){
+    ServiceProviderResource::withoutWrapping();
+    return ServiceProviderResource::collection(
+      ServiceProvider::where('is_sp_active',TRUE)
+      ->where('service_provider_id',$service_provider_id)
+      ->get());
+  }
 }

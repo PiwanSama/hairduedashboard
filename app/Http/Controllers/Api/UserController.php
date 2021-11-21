@@ -74,6 +74,24 @@ class UserController extends Controller
 
     }
 
+    public function getProfile($id)
+    { 
+
+      $checkUser = User::where('email',$request->email)->get();
+
+      if($checkUser->isEmpty()){
+        return response()->json([
+          "message"=>"User not found"
+        ], 403);
+      }
+
+        return response()->json([
+          "message"=>"Success",
+          "user"=>$user,
+          "access_token"=>$accessToken
+        ], 201);
+    }
+
     public function logout(Request $request)
     {
         $request->user()->token()->revoke();

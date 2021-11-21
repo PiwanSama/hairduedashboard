@@ -30,6 +30,7 @@ Route::get('/providers', 'ServiceProviderController@getProviders');
 Route::get('/products', 'ProductController@products');
 Route::get('/product/{id}', 'ProductController@product');
 Route::get('/providers/{id}', 'ServiceCategoryController@getProvidersByCategory');
+Route::get('/mapProviders', 'ServiceProviderController@getProvidersForMap');
 Route::get('/provider/{id}', 'ServiceProviderController@getProviderDetails');
 Route::post('/order/create', 'OrderController@postOrder');
 Route::post('/order/cart/create', 'OrderController@postOrderProducts');
